@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMT Student Wall</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #EAE0CF;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2e4f63 0%, #3f6278 45%, #547792 100%);
+      padding: 52px 40px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, .15);
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 8.5pt;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .9);
+      margin-bottom: 22px;
+    }
+
+    .brand-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    header h1 {
+      font-size: 38pt;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, .15);
+    }
+
+    header h1 span {
+      color: rgba(255, 255, 255, .7);
+    }
+
+    header p {
+      font-size: 11pt;
+      color: rgba(255, 255, 255, .7);
+      font-weight: 400;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cohort-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, .15);
+      border: 1px solid rgba(255, 255, 255, .3);
+      color: #fff;
+      font-size: 8pt;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+
+    .progress-tag {
+      display: inline-block;
+      background: rgba(0, 0, 0, .2);
+      border: 1px solid rgba(255, 255, 255, .15);
+      color: rgba(255, 255, 255, .8);
+      font-size: 8pt;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 980px;
+      margin: 36px auto;
+      padding: 0 32px 60px;
+    }
+
+    .card {
+      background: #EEEEEE;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #d8d8d8;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .10), 0 1px 4px rgba(0, 0, 0, .06);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .14), 0 2px 6px rgba(0, 0, 0, .08);
+    }
+
+    .card-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #2e4f63, #547792);
+    }
+
+    .card-inner {
+      padding: 18px 18px 16px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #d4d4d4;
+    }
+
+    .card-initial {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #d0dde6, #bfcfdb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16pt;
+      font-weight: 800;
+      color: #2e4f63;
+      font-family: 'DM Mono', monospace;
+      flex-shrink: 0;
+    }
+
+    .card-name-text {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #1a1f36;
+      line-height: 1.2;
+    }
+
+    .card-role {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #547792;
+      background: #d0dde6;
+      padding: 1px 7px;
+      border-radius: 4px;
+    }
+
+    .card-field {
+      margin-bottom: 10px;
+    }
+
+    .card-field:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 7pt;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #9aabb8;
+      margin-bottom: 3px;
+    }
+
+    .card-text {
+      font-size: 9.5pt;
+      color: #1a1f36;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .card-placeholder {
+      background: #ddd5c4;
+      border: 1.5px dashed #c4b9a8;
+      border-radius: 16px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: border-color .18s ease;
+    }
+
+    .card-placeholder:hover {
+      border-color: #547792;
+    }
+
+    .placeholder-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px dashed #b0a898;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b0a898;
+      font-size: 18px;
+      font-weight: 300;
+      transition: border-color .18s ease, color .18s ease;
+    }
+
+    .card-placeholder:hover .placeholder-circle {
+      border-color: #547792;
+      color: #547792;
+    }
+
+    .placeholder-name {
+      font-size: 10pt;
+      font-weight: 600;
+      color: #8a7e70;
+      letter-spacing: .02em;
+      transition: color .18s ease;
+    }
+
+    .card-placeholder:hover .placeholder-name {
+      color: #547792;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px 40px;
+      font-size: 8.5pt;
+      color: #8a7e70;
+      border-top: 1px solid #d4c8b8;
+      background: #ddd5c4;
+      letter-spacing: .05em;
+    }
+
+    .footer-count {
+      display: inline-block;
+      margin-left: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 8pt;
+      color: #547792;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var cards = document.querySelectorAll('.card[data-name]');
+      var total = cards.length + document.querySelectorAll('.card-placeholder').length;
+      var filled = 0;
+
+      cards.forEach(function (el) {
+        var name = el.getAttribute('data-name') || '';
+        var hobby = el.getAttribute('data-hobby') || '';
+        var learned = el.getAttribute('data-learned') || '';
+        var initial = name.trim().charAt(0).toUpperCase();
+        filled++;
+
+        el.innerHTML =
+          '<div class="card-bar"></div>' +
+          '<div class="card-inner">' +
+          '<div class="card-header">' +
+          '<div class="card-initial">' + initial + '</div>' +
+          '<div>' +
+          '<div class="card-name-text">' + name + '</div>' +
+          '<span class="card-role">Engineer</span>' +
+          '</div>' +
+          '</div>' +
+          '<div class="card-field">' +
+          '<div class="card-label">Hobby</div>' +
+          '<div class="card-text">' + hobby + '</div>' +
+          '</div>' +
+          '<div class="card-field">' +
+          '<div class="card-label">What I have learned</div>' +
+          '<div class="card-text">' + learned + '</div>' +
+          '</div>' +
+          '</div>';
+      });
+
+      var countText = filled + ' of ' + (filled + document.querySelectorAll('.card-placeholder').length) + ' cards added';
+      var badge = document.getElementById('count-badge');
+      var footer = document.getElementById('footer-count');
+      if (badge) badge.textContent = countText;
+      if (footer) footer.textContent = '· ' + countText;
+    });
+  </script>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand-pill"><span class="dot"></span> Bright Mind Tech</div>
+      <h1>Student <span>Wall</span></h1>
+      <p>One card per student. One pull request at a time.</p>
+      <div class="header-meta">
+        <span class="cohort-tag">DevOps Cohort · 2026</span>
+        <span class="progress-tag" id="count-badge">1 of 27 cards added</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!--
+  ═══════════════════════════════════════════════════════
+  HOW TO ADD YOUR CARD
+  ───────────────────────────────────────────────────────
+  Find your name below. Replace your placeholder line
+  with a card line exactly like John Smith's.
+  Change only 3 things: your name, hobby, and learned.
+  ═══════════════════════════════════════════════════════
+  -->
+
+    <!-- John Smith — example -->
+    <div class="card" data-name="John Smith" data-hobby="Listening to music"
+      data-learned="The best way to learn DevOps is to build things, break things, and fix them again."></div>
+
+    <!-- Aliah -->
+    <div class="card" data-name="Aliah" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Bennadette -->
+    <div class="card" data-name="Bennadette" data-hobby="Your hobby here" data-learned="What you have learned here">
+    </div>
+
+    <!-- Daddy Ray -->
+    <div class="card" data-name="Daddy Ray" data-hobby="Your hobby here" data-learned="What you have learned here">
+    </div>
+
+    <!-- Denis -->
+    <div class="card" data-name="Denis" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Desmond -->
+    <div class="card" data-name="Desmond" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Eric -->
+    <div class="card" data-name="Eric" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- E Peter -->
+    <div class="card" data-name="E Peter" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Eunice -->
+    <div class="card" data-name="Eunice" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Ferdinand -->
+    <div class="card" data-name="Ferdinand" data-hobby="Your hobby here" data-learned="What you have learned here">
+    </div>
+
+    <!-- Fred -->
+    <div class="card" data-name="Fred" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Hermia -->
+    <div class="card" data-name="Hermia" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Kenzo -->
+    <div class="card" data-name="Kenzo" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Linda -->
+    <div class="card" data-name="Linda" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Maureen -->
+    <div class="card" data-name="Maureen" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- M Peter -->
+    <div class="card" data-name="M Peter" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Mercy -->
+    <div class="card" data-name="Mercy" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Naomie -->
+    <div class="card" data-name="Naomie" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Primus -->
+    <div class="card" data-name="Primus" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Queen -->
+    <div class="card" data-name="Queen" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Raisa -->
+    <div class="card" data-name="Raisa" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Roger -->
+    <div class="card" data-name="Roger" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Rosa -->
+    <div class="card" data-name="Rosa" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Sandra -->
+    <div class="card" data-name="Sandra" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Sonita -->
+    <div class="card" data-name="Sonita" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Stephane -->
+    <div class="card" data-name="Stephane" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+    <!-- Uncle P -->
+    <div class="card" data-name="Uncle P" data-hobby="Your hobby here" data-learned="What you have learned here"></div>
+
+  </div>
+
+  <footer>© 2026 Bright Mind Tech <span class="footer-count" id="footer-count"></span></footer>
+
+</body>
+
+</html>
