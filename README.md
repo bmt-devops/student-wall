@@ -1,2 +1,2 @@
 # student-wall
-First real Git/GitHub workflow practice in a collaborative situation using GitHub organizations.
+file editing using git/github in a collaborative situation. 
